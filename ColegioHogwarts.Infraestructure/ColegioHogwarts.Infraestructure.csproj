@@ -10,4 +10,8 @@
     <Folder Include="Repositories\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ColegioHogwarts.Core\ColegioHogwarts.Core.csproj" />
+  </ItemGroup>
+
 </Project>
