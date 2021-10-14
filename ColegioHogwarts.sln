@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.31729.503
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColegioHogwarts.Api", "ColegioHogwarts.Api\ColegioHogwarts.Api.csproj", "{A10D5CB5-DD1E-47C7-AD50-FD53B2886BCE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColegioHogwarts.Core", "ColegioHogwarts.Core\ColegioHogwarts.Core.csproj", "{F7EDA078-4378-4E05-95A2-185AC804933A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColegioHogwarts.Infraestructure", "ColegioHogwarts.Infraestructure\ColegioHogwarts.Infraestructure.csproj", "{BEC474FF-6DB8-416E-ADF9-57D9A93F3CB9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{A10D5CB5-DD1E-47C7-AD50-FD53B2886BCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A10D5CB5-DD1E-47C7-AD50-FD53B2886BCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A10D5CB5-DD1E-47C7-AD50-FD53B2886BCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7EDA078-4378-4E05-95A2-185AC804933A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7EDA078-4378-4E05-95A2-185AC804933A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7EDA078-4378-4E05-95A2-185AC804933A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7EDA078-4378-4E05-95A2-185AC804933A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BEC474FF-6DB8-416E-ADF9-57D9A93F3CB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEC474FF-6DB8-416E-ADF9-57D9A93F3CB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEC474FF-6DB8-416E-ADF9-57D9A93F3CB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEC474FF-6DB8-416E-ADF9-57D9A93F3CB9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
