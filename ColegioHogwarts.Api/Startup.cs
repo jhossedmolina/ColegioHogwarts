@@ -1,6 +1,8 @@
 using ColegioHogwarts.Core.Interfaces;
 using ColegioHogwarts.Infraestructure.Data;
+using ColegioHogwarts.Infraestructure.Filters;
 using ColegioHogwarts.Infraestructure.Repositories;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -39,6 +41,12 @@ namespace ColegioHogwarts.Api
             services.AddTransient<ICandidateRepository, CandidateRepository>();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            services.AddMvc(options => {
+                options.Filters.Add<ValidationFilter>();
+            }).AddFluentValidation(options => {
+                options.RegisterValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());  
+            });
             
         }
 
