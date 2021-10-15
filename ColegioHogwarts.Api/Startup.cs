@@ -1,7 +1,11 @@
+using ColegioHogwarts.Core.Interfaces;
+using ColegioHogwarts.Infraestructure.Data;
+using ColegioHogwarts.Infraestructure.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,6 +30,14 @@ namespace ColegioHogwarts.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            //Inyeccion de dependencias
+            services.AddDbContext<ColegioHogwartsDBContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("ColegioHogwarts"))
+            );
+
+            services.AddTransient<ICandidateRepository, CandidateRepository>();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
