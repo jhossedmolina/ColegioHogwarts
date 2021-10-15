@@ -16,10 +16,22 @@ namespace ColegioHogwarts.Infraestructure.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<Candidate>> GetCandidate()
+        public async Task<IEnumerable<Candidate>> GetCandidates()
         {
-            var candidate = await _context.Candidates.ToListAsync();
+            var candidates = await _context.Candidates.ToListAsync();
+            return candidates;
+        }
+
+        public async Task<Candidate> GetCandidate(int id)
+        {
+            var candidate = await _context.Candidates.FirstOrDefaultAsync(x => x.Identification == id);
             return candidate;
+        }
+
+        public async Task InsertCandidate(Candidate candidate)
+        {
+            _context.Candidates.Add(candidate);
+            await _context.SaveChangesAsync();
         }
     }
 }

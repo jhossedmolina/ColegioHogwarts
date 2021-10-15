@@ -37,6 +37,8 @@ namespace ColegioHogwarts.Api
             );
 
             services.AddTransient<ICandidateRepository, CandidateRepository>();
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             
         }
 
