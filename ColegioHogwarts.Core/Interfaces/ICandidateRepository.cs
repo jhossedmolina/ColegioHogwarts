@@ -6,6 +6,6 @@ namespace ColegioHogwarts.Core.Interfaces
 {
     public interface ICandidateRepository
     {
-        Task<IEnumerable<Aspirante>> GetCandidate();
+        Task<IEnumerable<Candidate>> GetCandidate();
     }
 }

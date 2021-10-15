@@ -16,9 +16,9 @@ namespace ColegioHogwarts.Infraestructure.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<Aspirante>> GetCandidate()
+        public async Task<IEnumerable<Candidate>> GetCandidate()
         {
-            var candidate = await _context.Aspirante.ToListAsync();
+            var candidate = await _context.Candidates.ToListAsync();
             return candidate;
         }
     }

@@ -1,28 +1,18 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+
+// Code scaffolded by EF Core assumes nullable reference types (NRTs) are not used or disabled.
+// If you have enabled NRTs for your project, then un-comment the following line:
+// #nullable disable
 
 namespace ColegioHogwarts.Core.Entities
 {
-    public class Candidate
+    public partial class Candidate
     {
-        [MaxLength(10)]
-        public int Id { get; set; }
-
-        [StringLength(20)]
-        public string Nombre { get; set; }
-
-        [StringLength(20)]
-        public string Apellido { get; set; }
-
-        [MaxLength(2)]
-        public int Edad { get; set; }
-        public CasaPertenece Casa { get; set; }
-
-        public enum CasaPertenece { 
-            Gryffindor = 1,
-            Hufflepuff = 2,
-            Ravenclaw = 3, 
-            Slytherin = 4
-        }
+        public int Identification { get; set; }
+        public string Name { get; set; }
+        public string LastName { get; set; }
+        public int Age { get; set; }
+        public string House { get; set; }
     }
-}   
+}
