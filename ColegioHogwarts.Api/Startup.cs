@@ -2,6 +2,7 @@ using ColegioHogwarts.Core.Interfaces;
 using ColegioHogwarts.Infraestructure.Data;
 using ColegioHogwarts.Infraestructure.Filters;
 using ColegioHogwarts.Infraestructure.Repositories;
+using ColegioHogwarts.Infraestructure.Validators;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -40,6 +41,8 @@ namespace ColegioHogwarts.Api
 
             services.AddTransient<ICandidateRepository, CandidateRepository>();
 
+            services.AddTransient<IHouseValidator, HouseValidator>();
+
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddMvc(options => {
@@ -47,6 +50,7 @@ namespace ColegioHogwarts.Api
             }).AddFluentValidation(options => {
                 options.RegisterValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());  
             });
+
             
         }
 

@@ -1,6 +1,8 @@
-﻿using ColegioHogwarts.Core.Entities;
+﻿using System;
+using ColegioHogwarts.Core.Entities;
 using ColegioHogwarts.Infraestructure.Data.Configurations;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace ColegioHogwarts.Infraestructure.Data
 {
@@ -15,11 +17,13 @@ namespace ColegioHogwarts.Infraestructure.Data
         {
         }
 
-        public virtual DbSet<Candidate> Candidates { get; set; }
+        public virtual DbSet<Candidate> Candidate { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new CandidateConfiguration());
         }
+
+        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

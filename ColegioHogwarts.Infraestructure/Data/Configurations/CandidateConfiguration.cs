@@ -11,37 +11,29 @@ namespace ColegioHogwarts.Infraestructure.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Candidate> builder)
         {
-            builder.ToTable("Aspirante");
+            builder.HasKey(e => e.IdCandidate);
 
-            builder.HasKey(e => e.Identification);
+            builder.Property(e => e.IdCandidate).HasColumnName("idCandidate");
 
-            builder.Property(e => e.Identification)
-                .HasColumnName("identificacion")
-                .ValueGeneratedNever();
-
-            builder.Property(e => e.Name)
-               .IsRequired()
-               .HasColumnName("nombre")
-               .HasMaxLength(20)
-               .IsUnicode(false);
-
-            builder.Property(e => e.LastName)
-                .IsRequired()
-                .HasColumnName("apellido")
-                .HasMaxLength(20)
-                .IsUnicode(false);
+            builder.Property(e => e.Age).HasColumnName("age");
 
             builder.Property(e => e.House)
                 .IsRequired()
-                .HasColumnName("casaAspira")
+                .HasColumnName("house")
                 .HasMaxLength(20)
                 .IsUnicode(false);
 
-            builder.Property(e => e.Age).HasColumnName("edad");
+            builder.Property(e => e.Identification).HasColumnName("identification");
+
+            builder.Property(e => e.LastName)
+                .IsRequired()
+                .HasColumnName("lastName")
+                .HasMaxLength(20)
+                .IsUnicode(false);
 
             builder.Property(e => e.Name)
                 .IsRequired()
-                .HasColumnName("nombre")
+                .HasColumnName("name")
                 .HasMaxLength(20)
                 .IsUnicode(false);
         }

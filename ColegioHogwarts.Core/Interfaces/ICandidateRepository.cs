@@ -11,5 +11,9 @@ namespace ColegioHogwarts.Core.Interfaces
         Task<Candidate> GetCandidate(int id);
 
         Task InsertCandidate(Candidate candidate);
+
+        Task<bool> UpdateCandidate(Candidate candidate);
+
+        Task<bool> DeleteCandidate(int id);
     }
 }

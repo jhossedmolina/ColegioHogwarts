@@ -16,11 +16,11 @@ namespace ColegioHogwarts.Infraestructure.Validators
 
             RuleFor(candidate => candidate.Name)
                 .NotNull()
-                .Length(5, 20);
+                .Length(3, 20);
 
             RuleFor(candidate => candidate.LastName)
                 .NotNull()
-                .Length(5, 20);
+                .Length(3, 20);
 
             RuleFor(candidate => candidate.Age)
                 .NotNull()

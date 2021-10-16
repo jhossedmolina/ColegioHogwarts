@@ -13,7 +13,6 @@ namespace ColegioHogwarts.Infraestructure.Mappings
         {
             CreateMap<Candidate, CandidateDto>();
             CreateMap<CandidateDto, Candidate>();
-
         }
     }
 }

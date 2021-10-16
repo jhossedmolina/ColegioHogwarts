@@ -7,6 +7,7 @@ namespace ColegioHogwarts.Core.DTOs
 {
     public class CandidateDto
     {
+        public int IdCandidate { get; set; }
         public long? Identification { get; set; }
         public string Name { get; set; }
         public string LastName { get; set; }
