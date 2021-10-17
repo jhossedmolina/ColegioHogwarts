@@ -22,8 +22,13 @@ namespace ColegioHogwarts.Api.Controllers
             _mapper = mapper;
         }
 
+
+        /// <summary>
+        /// Consulta todas las solicitudes enviadas por los aspirantes
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
-        public async Task<IActionResult> GetCandidates(int? identification, string name, string lastName, int? age, string house)
+        public async Task<IActionResult> GetCandidates()
         {
             var candidates = await _candidateService.GetCandidates();
             var candidatesDtos = _mapper.Map<IEnumerable<CandidateDto>>(candidates);
@@ -31,6 +36,11 @@ namespace ColegioHogwarts.Api.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Consulta por id la solicitud enviada por los aspirantes
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCandidate(int id)
         {
@@ -40,6 +50,11 @@ namespace ColegioHogwarts.Api.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Crea una nueva solicitud de ingreso
+        /// </summary>
+        /// <param name="candidateDto"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> PostCandidate(CandidateDto candidateDto)
         {
@@ -51,6 +66,12 @@ namespace ColegioHogwarts.Api.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Actualiza una solicitud de ingreso
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="candidateDto"></param>
+        /// <returns></returns>
         [HttpPut]
         public async Task<IActionResult> UpdateCandidate(int id, CandidateDto candidateDto)
         {
@@ -62,6 +83,11 @@ namespace ColegioHogwarts.Api.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Elimina una solicitud de ingreso
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCandidate(int id)
         {
