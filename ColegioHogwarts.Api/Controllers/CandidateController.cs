@@ -13,21 +13,19 @@ namespace ColegioHogwarts.Api.Controllers
     [ApiController]
     public class CandidateController : ControllerBase
     {
-        private readonly ICandidateRepository _candidateRepository;
+        private readonly ICandidateService _candidateService;
         private readonly IMapper _mapper;
-        private readonly IHouseValidator _houseValidator;
 
-        public CandidateController(ICandidateRepository candidateRepository, IMapper mapper, IHouseValidator houseValidator)
+        public CandidateController(ICandidateService candidateService, IMapper mapper)
         {
-            _candidateRepository = candidateRepository;
+            _candidateService = candidateService;
             _mapper = mapper;
-            _houseValidator = houseValidator;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetCandidates()
+        public async Task<IActionResult> GetCandidates(int? identification, string name, string lastName, int? age, string house)
         {
-            var candidates = await _candidateRepository.GetCandidates();
+            var candidates = await _candidateService.GetCandidates();
             var candidatesDtos = _mapper.Map<IEnumerable<CandidateDto>>(candidates);
             var response = new ApiResponse<IEnumerable<CandidateDto>>(candidatesDtos);
             return Ok(response);
@@ -36,7 +34,7 @@ namespace ColegioHogwarts.Api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCandidate(int id)
         {
-            var candidate = await _candidateRepository.GetCandidate(id);
+            var candidate = await _candidateService.GetCandidate(id);
             var candidateDto = _mapper.Map<CandidateDto>(candidate);
             var response = new ApiResponse<CandidateDto>(candidateDto);
             return Ok(response);
@@ -47,10 +45,7 @@ namespace ColegioHogwarts.Api.Controllers
         {
             var candidate = _mapper.Map<Candidate>(candidateDto);
 
-            if (!_houseValidator.HouseExist(candidateDto.House))
-                return BadRequest($"La casa {candidateDto.House} no existe");
-
-            await _candidateRepository.InsertCandidate(candidate);
+            await _candidateService.InsertCandidate(candidate);
             candidateDto = _mapper.Map<CandidateDto>(candidate);
             var response = new ApiResponse<CandidateDto>(candidateDto);          
             return Ok(response);
@@ -61,11 +56,8 @@ namespace ColegioHogwarts.Api.Controllers
         {
             var candidate = _mapper.Map<Candidate>(candidateDto);
             candidate.IdCandidate = id;
-            
-            if (!_houseValidator.HouseExist(candidateDto.House))
-                return BadRequest($"La casa {candidateDto.House} no existe");
 
-            var result = await _candidateRepository.UpdateCandidate(candidate);
+            var result = await _candidateService.UpdateCandidate(candidate);
             var response = new ApiResponse<bool>(result);
             return Ok(response);
         }
@@ -73,7 +65,7 @@ namespace ColegioHogwarts.Api.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCandidate(int id)
         {
-            var result = await _candidateRepository.DeleteCandidate(id);
+            var result = await _candidateService.DeleteCandidate(id);
             var response = new ApiResponse<bool>(result);
             return Ok(response);
         }

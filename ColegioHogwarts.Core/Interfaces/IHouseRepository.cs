@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ColegioHogwarts.Core.Interfaces
 {
-    public interface IHouseValidator
+    public interface IHouseRepository
     {
         bool HouseExist(string house);
     }

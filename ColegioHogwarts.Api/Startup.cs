@@ -1,22 +1,16 @@
 using ColegioHogwarts.Core.Interfaces;
+using ColegioHogwarts.Core.Services;
 using ColegioHogwarts.Infraestructure.Data;
 using ColegioHogwarts.Infraestructure.Filters;
 using ColegioHogwarts.Infraestructure.Repositories;
-using ColegioHogwarts.Infraestructure.Validators;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ColegioHogwarts.Api
 {
@@ -34,14 +28,15 @@ namespace ColegioHogwarts.Api
         {
             services.AddControllers();
 
-            //Inyeccion de dependencias
+            //Inyeccion de dependencia para la Base De Datos
             services.AddDbContext<ColegioHogwartsDBContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("ColegioHogwarts"))
             );
 
+            //Inyeccion de dependencias
             services.AddTransient<ICandidateRepository, CandidateRepository>();
-
-            services.AddTransient<IHouseValidator, HouseValidator>();
+            services.AddTransient<ICandidateService, CandidateService>();
+            services.AddTransient<IHouseRepository, HouseRepository>();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
@@ -49,6 +44,11 @@ namespace ColegioHogwarts.Api
                 options.Filters.Add<ValidationFilter>();
             }).AddFluentValidation(options => {
                 options.RegisterValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());  
+            });
+
+            services.AddControllers(options =>
+            {
+                options.Filters.Add<GlobalExceptionFilter>();
             });
 
             
