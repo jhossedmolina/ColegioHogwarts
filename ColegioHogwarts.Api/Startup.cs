@@ -4,16 +4,19 @@ using ColegioHogwarts.Infraestructure.Data;
 using ColegioHogwarts.Infraestructure.Filters;
 using ColegioHogwarts.Infraestructure.Repositories;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
 using System.IO;
 using System.Reflection;
+using System.Text;
 
 namespace ColegioHogwarts.Api
 {
@@ -29,31 +32,25 @@ namespace ColegioHogwarts.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
-
-            //Inyeccion de dependencia para la Base De Datos
+            //Dependency injection for Data Base
             services.AddDbContext<ColegioHogwartsDBContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("ColegioHogwarts"))
             );
 
-            //Inyeccion de dependencias
+            //Dependency injection
             services.AddTransient<ICandidateRepository, CandidateRepository>();
             services.AddTransient<ICandidateService, CandidateService>();
             services.AddTransient<IHouseRepository, HouseRepository>();
 
+            //AutoMapper implementation
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
-            services.AddMvc(options => {
-                options.Filters.Add<ValidationFilter>();
-            }).AddFluentValidation(options => {
-                options.RegisterValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());  
-            });
 
             services.AddControllers(options =>
             {
                 options.Filters.Add<GlobalExceptionFilter>();
             });
 
+            //Swagger implementation
             services.AddSwaggerGen(doc => 
             {
                 doc.SwaggerDoc("v1", new OpenApiInfo { Title = "Colegio Hogwarts API", Version = "v1" });
@@ -61,7 +58,33 @@ namespace ColegioHogwarts.Api
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 doc.IncludeXmlComments(xmlPath);
-            }); 
+            });
+
+            //Securing JWT 
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = Configuration["Authentication:Issuer"],
+                    ValidAudience = Configuration["Authentication:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Authentication:SecretKey"]))
+                };
+            });
+
+            //Fluent validation implementation
+            services.AddMvc(options => {
+                options.Filters.Add<ValidationFilter>();
+            }).AddFluentValidation(options => {
+                options.RegisterValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -83,7 +106,9 @@ namespace ColegioHogwarts.Api
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
+            
 
             app.UseEndpoints(endpoints =>
             {

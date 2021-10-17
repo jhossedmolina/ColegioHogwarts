@@ -3,12 +3,14 @@ using ColegioHogwarts.Api.Responses;
 using ColegioHogwarts.Core.DTOs;
 using ColegioHogwarts.Core.Entities;
 using ColegioHogwarts.Core.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ColegioHogwarts.Api.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CandidateController : ControllerBase
