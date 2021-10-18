@@ -1,11 +1,11 @@
-﻿using System;
+﻿using ColegioHogwarts.Core.Enumerations;
+using System;
 using System.Collections.Generic;
 
 namespace ColegioHogwarts.Core.Entities
 {
-    public partial class Candidate
+    public partial class Candidate : BaseEntity
     {
-        public int IdCandidate { get; set; }
         public long Identification { get; set; }
         public string Name { get; set; }
         public string LastName { get; set; }

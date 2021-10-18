@@ -38,9 +38,12 @@ namespace ColegioHogwarts.Api
             );
 
             //Dependency injection
-            services.AddTransient<ICandidateRepository, CandidateRepository>();
+            //services.AddTransient<ICandidateRepository, CandidateRepository>();
             services.AddTransient<ICandidateService, CandidateService>();
             services.AddTransient<IHouseRepository, HouseRepository>();
+            services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+
 
             //AutoMapper implementation
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

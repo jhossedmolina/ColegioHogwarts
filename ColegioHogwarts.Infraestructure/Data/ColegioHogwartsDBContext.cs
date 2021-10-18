@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using ColegioHogwarts.Core.Entities;
 using ColegioHogwarts.Infraestructure.Data.Configurations;
 using Microsoft.EntityFrameworkCore;
@@ -18,10 +19,11 @@ namespace ColegioHogwarts.Infraestructure.Data
         }
 
         public virtual DbSet<Candidate> Candidate { get; set; }
+        //public virtual DbSet<Security> Security { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new CandidateConfiguration());
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

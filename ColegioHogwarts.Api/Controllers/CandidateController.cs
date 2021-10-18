@@ -78,7 +78,7 @@ namespace ColegioHogwarts.Api.Controllers
         public async Task<IActionResult> UpdateCandidate(int id, CandidateDto candidateDto)
         {
             var candidate = _mapper.Map<Candidate>(candidateDto);
-            candidate.IdCandidate = id;
+            candidate.Id = id;
 
             var result = await _candidateService.UpdateCandidate(candidate);
             var response = new ApiResponse<bool>(result);

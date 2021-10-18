@@ -10,47 +10,50 @@ namespace ColegioHogwarts.Core.Services
 {
     public class CandidateService : ICandidateService
     {
-        private readonly ICandidateRepository _candidateRepository;
-        private readonly IHouseRepository _houseValidator;
+        private IUnitOfWork _unitOfWork;
+        private readonly IHouseRepository _houseRepository;
 
-        public CandidateService(ICandidateRepository candidateRepository, IHouseRepository houseValidator)
+        public CandidateService(IUnitOfWork unitOfWork, IHouseRepository houseValidator)
         {
-            _candidateRepository = candidateRepository;
-            _houseValidator = houseValidator;
+            _unitOfWork = unitOfWork;
+            _houseRepository = houseValidator;
         }
 
         public async Task<IEnumerable<Candidate>> GetCandidates()
         {
-            return await _candidateRepository.GetCandidates();
+            return await _unitOfWork.CandidateRepository.GetAll();
         }
 
         public async Task<Candidate> GetCandidate(int id)
         {
-            return await _candidateRepository.GetCandidate(id);
+            return await _unitOfWork.CandidateRepository.GetById(id);
         }
 
         public async Task InsertCandidate(Candidate candidate)
         {
-            if(!_houseValidator.HouseExist(candidate.House))
+            if(!_houseRepository.HouseExist(candidate.House))
             {
                 throw new CandidateException($"La casa {candidate.House} no existe");
             }
-            await _candidateRepository.InsertCandidate(candidate);
+            await _unitOfWork.CandidateRepository.Add(candidate);
         }
 
         public async Task<bool> UpdateCandidate(Candidate candidate)
         {
-            if (!_houseValidator.HouseExist(candidate.House))
+            if(!_houseRepository.HouseExist(candidate.House))
             {
                 throw new CandidateException($"La casa {candidate.House} no existe. " +
                     $"Solo puede ingresar: Gryffindor, Slytherin, Hufflepuff o Ravenclaw");
             }
-            return await _candidateRepository.UpdateCandidate(candidate);
+
+            await _unitOfWork.CandidateRepository.Update(candidate);
+            return true;
         }
 
         public async Task<bool> DeleteCandidate(int id)
         {
-            return await _candidateRepository.DeleteCandidate(id);
+            await _unitOfWork.CandidateRepository.Delete(id);
+            return true;
         }
     }
 }

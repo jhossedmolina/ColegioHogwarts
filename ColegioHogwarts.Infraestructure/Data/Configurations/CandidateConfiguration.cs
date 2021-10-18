@@ -1,4 +1,5 @@
 ﻿using ColegioHogwarts.Core.Entities;
+using ColegioHogwarts.Core.Enumerations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -11,9 +12,9 @@ namespace ColegioHogwarts.Infraestructure.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Candidate> builder)
         {
-            builder.HasKey(e => e.IdCandidate);
+            builder.HasKey(e => e.Id);
 
-            builder.Property(e => e.IdCandidate).HasColumnName("idCandidate");
+            builder.Property(e => e.Id).HasColumnName("idCandidate");
 
             builder.Property(e => e.Age).HasColumnName("age");
 

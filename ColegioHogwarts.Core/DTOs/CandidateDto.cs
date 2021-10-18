@@ -1,4 +1,5 @@
 ﻿using ColegioHogwarts.Core.Entities;
+using ColegioHogwarts.Core.Enumerations;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,7 +16,7 @@ namespace ColegioHogwarts.Core.DTOs
         /// El campo edad debe contener 2 digitos y no puede ser nulo
         /// En el campo House solo se pueden ingresar las casas Ravenclaw, Slytherin, Gryffindor o Hufflepuff
         /// </summary>
-        public int IdCandidate { get; set; }
+        public int Id { get; set; }
         public long? Identification { get; set; }
         public string Name { get; set; }
         public string LastName { get; set; }
