@@ -12,9 +12,9 @@ namespace ColegioHogwarts.Infraestructure.Filters
     {
         public void OnException(ExceptionContext context)
         {
-            if(context.Exception.GetType()== typeof(CandidateException))
+            if(context.Exception.GetType()== typeof(GlobalException))
             {
-                var exception = (CandidateException)context.Exception;
+                var exception = (GlobalException)context.Exception;
                 var validation = new
                 {
                     Status = 400,

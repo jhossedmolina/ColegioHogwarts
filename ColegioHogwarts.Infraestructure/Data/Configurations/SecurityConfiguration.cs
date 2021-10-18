@@ -3,8 +3,6 @@ using ColegioHogwarts.Core.Enumerations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ColegioHogwarts.Infraestructure.Data.Configurations
 {
@@ -12,32 +10,34 @@ namespace ColegioHogwarts.Infraestructure.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Security> builder)
         {
-                /*builder.HasKey(e => e.IdSecurity)
-                    .HasName("PK__Security__77863C70D73D33D1");*/
+            builder.ToTable("Security");
 
-                builder.Property(e => e.PasswordUser)
-                            .IsRequired()
-                            .HasMaxLength(200)
-                            .IsUnicode(false);
+            builder.HasKey(e => e.Id);
 
-                builder.Property(e => e.RoleUser)
-                            .IsRequired()
-                            .HasMaxLength(15)
-                            .HasConversion(
-                            x => x.ToString(),
-                            x => (RoleType)Enum.Parse(typeof(RoleType), x)
-                            )
-                            .IsUnicode(false);
+            builder.Property(e => e.Id)
+                .HasColumnName("IdSecurity");
 
-                builder.Property(e => e.UserName)
-                            .IsRequired()
-                            .HasMaxLength(100)
-                            .IsUnicode(false);
+            builder.Property(e => e.PasswordUser)
+                .IsRequired()
+                .HasMaxLength(200)
+                .IsUnicode(false);
 
-                builder.Property(e => e.UserSecurity)
-                            .IsRequired()
-                            .HasMaxLength(50)
-                            .IsUnicode(false);
+            builder.Property(e => e.RoleUser)
+                .HasConversion(
+                x => x.ToString(),
+                x => (RoleType)Enum.Parse(typeof(RoleType), x))
+                .IsRequired()
+                .HasMaxLength(15);
+
+            builder.Property(e => e.UserName)
+                .IsRequired()
+                .HasMaxLength(100)
+                .IsUnicode(false);
+
+            builder.Property(e => e.UserSecurity)
+                .IsRequired()
+                .HasMaxLength(50)
+                .IsUnicode(false);
         }
     }
 }

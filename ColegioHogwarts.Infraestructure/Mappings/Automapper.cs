@@ -11,8 +11,9 @@ namespace ColegioHogwarts.Infraestructure.Mappings
     {
         public Automapper()
         {
-            CreateMap<Candidate, CandidateDto>();
-            CreateMap<CandidateDto, Candidate>();
+            CreateMap<Candidate, CandidateDto>().ReverseMap();
+
+            CreateMap<Security, SecurityDto>().ReverseMap();
         }
     }
 }

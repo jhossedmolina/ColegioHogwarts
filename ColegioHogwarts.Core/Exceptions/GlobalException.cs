@@ -4,13 +4,13 @@ using System.Text;
 
 namespace ColegioHogwarts.Core.Exceptions
 {
-    public class CandidateException : Exception
+    public class GlobalException : Exception
     {
-        public CandidateException()
+        public GlobalException()
         {
         }
 
-        public CandidateException(string message) : base(message)
+        public GlobalException(string message) : base(message)
         {
         }
     }

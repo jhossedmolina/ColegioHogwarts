@@ -11,9 +11,9 @@ namespace ColegioHogwarts.Core.Services
     public class CandidateService : ICandidateService
     {
         private IUnitOfWork _unitOfWork;
-        private readonly IHouseRepository _houseRepository;
+        private readonly IHouseValidator _houseRepository;
 
-        public CandidateService(IUnitOfWork unitOfWork, IHouseRepository houseValidator)
+        public CandidateService(IUnitOfWork unitOfWork, IHouseValidator houseValidator)
         {
             _unitOfWork = unitOfWork;
             _houseRepository = houseValidator;
@@ -33,7 +33,8 @@ namespace ColegioHogwarts.Core.Services
         {
             if(!_houseRepository.HouseExist(candidate.House))
             {
-                throw new CandidateException($"La casa {candidate.House} no existe");
+                throw new GlobalException($"La casa {candidate.House} no existe. " +
+                    $"Solo puede ingresar: Gryffindor, Slytherin, Hufflepuff o Ravenclaw");
             }
             await _unitOfWork.CandidateRepository.Add(candidate);
             await _unitOfWork.SaveChangesAsync();
@@ -43,7 +44,7 @@ namespace ColegioHogwarts.Core.Services
         {
             if(!_houseRepository.HouseExist(candidate.House))
             {
-                throw new CandidateException($"La casa {candidate.House} no existe. " +
+                throw new GlobalException($"La casa {candidate.House} no existe. " +
                     $"Solo puede ingresar: Gryffindor, Slytherin, Hufflepuff o Ravenclaw");
             }
 

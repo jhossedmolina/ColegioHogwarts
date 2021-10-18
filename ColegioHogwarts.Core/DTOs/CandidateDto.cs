@@ -1,10 +1,4 @@
-﻿using ColegioHogwarts.Core.Entities;
-using ColegioHogwarts.Core.Enumerations;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ColegioHogwarts.Core.DTOs
+﻿namespace ColegioHogwarts.Core.DTOs
 {
     public class CandidateDto
     {

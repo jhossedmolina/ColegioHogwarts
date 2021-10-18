@@ -1,11 +1,9 @@
-﻿using ColegioHogwarts.Core.Entities;
-using ColegioHogwarts.Core.Interfaces;
+﻿using ColegioHogwarts.Core.Interfaces;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
-namespace ColegioHogwarts.Infraestructure.Repositories
+namespace ColegioHogwarts.Infraestructure.Validators
 {
-    public class HouseRepository : IHouseRepository
+    public class HouseValidator : IHouseValidator
     {
         public bool HouseExist(string house)
         {

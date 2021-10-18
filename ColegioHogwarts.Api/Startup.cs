@@ -3,6 +3,7 @@ using ColegioHogwarts.Core.Services;
 using ColegioHogwarts.Infraestructure.Data;
 using ColegioHogwarts.Infraestructure.Filters;
 using ColegioHogwarts.Infraestructure.Repositories;
+using ColegioHogwarts.Infraestructure.Validators;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -38,9 +39,9 @@ namespace ColegioHogwarts.Api
             );
 
             //Dependency injection
-            //services.AddTransient<ICandidateRepository, CandidateRepository>();
             services.AddTransient<ICandidateService, CandidateService>();
-            services.AddTransient<IHouseRepository, HouseRepository>();
+            services.AddTransient<ISecurityService, SecurityService>();
+            services.AddTransient<IHouseValidator, HouseValidator>();
             services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 

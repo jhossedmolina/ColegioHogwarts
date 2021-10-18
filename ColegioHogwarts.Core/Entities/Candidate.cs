@@ -1,8 +1,4 @@
-﻿using ColegioHogwarts.Core.Enumerations;
-using System;
-using System.Collections.Generic;
-
-namespace ColegioHogwarts.Core.Entities
+﻿namespace ColegioHogwarts.Core.Entities
 {
     public partial class Candidate : BaseEntity
     {
