@@ -19,9 +19,9 @@ namespace ColegioHogwarts.Core.Services
             _houseRepository = houseValidator;
         }
 
-        public async Task<IEnumerable<Candidate>> GetCandidates()
+        public IEnumerable<Candidate> GetCandidates()
         {
-            return await _unitOfWork.CandidateRepository.GetAll();
+            return _unitOfWork.CandidateRepository.GetAll();
         }
 
         public async Task<Candidate> GetCandidate(int id)
@@ -36,6 +36,7 @@ namespace ColegioHogwarts.Core.Services
                 throw new CandidateException($"La casa {candidate.House} no existe");
             }
             await _unitOfWork.CandidateRepository.Add(candidate);
+            await _unitOfWork.SaveChangesAsync();
         }
 
         public async Task<bool> UpdateCandidate(Candidate candidate)
@@ -46,7 +47,8 @@ namespace ColegioHogwarts.Core.Services
                     $"Solo puede ingresar: Gryffindor, Slytherin, Hufflepuff o Ravenclaw");
             }
 
-            await _unitOfWork.CandidateRepository.Update(candidate);
+            _unitOfWork.CandidateRepository.Update(candidate);
+            await _unitOfWork.SaveChangesAsync();
             return true;
         }
 

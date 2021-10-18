@@ -6,6 +6,7 @@ using ColegioHogwarts.Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace ColegioHogwarts.Api.Controllers
@@ -29,10 +30,13 @@ namespace ColegioHogwarts.Api.Controllers
         /// Consulta todas las solicitudes enviadas por los aspirantes
         /// </summary>
         /// <returns></returns>
+        
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ApiResponse<IEnumerable<CandidateDto>>))]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [HttpGet]
-        public async Task<IActionResult> GetCandidates()
+        public IActionResult GetCandidates()
         {
-            var candidates = await _candidateService.GetCandidates();
+            var candidates = _candidateService.GetCandidates();
             var candidatesDtos = _mapper.Map<IEnumerable<CandidateDto>>(candidates);
             var response = new ApiResponse<IEnumerable<CandidateDto>>(candidatesDtos);
             return Ok(response);
