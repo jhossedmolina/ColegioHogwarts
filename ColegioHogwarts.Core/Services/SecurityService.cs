@@ -23,20 +23,20 @@ namespace ColegioHogwarts.Core.Services
 
         public async Task RegisterUser(Security security)
         {
-            if(RoleType.Administrador == security.RoleUser)
+            if(RoleType.Administrador == security.Role)
             {
                 await _unitOfWork.SecurityRepository.Add(security);
                 await _unitOfWork.SaveChangesAsync();
             }
-            else if(RoleType.Usuario == security.RoleUser)
+            else if(RoleType.Usuario == security.Role)
             {
                 await _unitOfWork.SecurityRepository.Add(security);
                 await _unitOfWork.SaveChangesAsync();
             }
             else
             {
-                throw new GlobalException($"El Rol {security.RoleUser} no existe. " +
-                    "Solo puede ingresar Administrador o Usuario como tipo de Rol");
+                throw new GlobalException($"El Rol {security.Role} no existe. " +
+                    "Solo puede ingresar 0 = Administrador o 1 = Usuario como tipo de Rol");
             }
             
         }

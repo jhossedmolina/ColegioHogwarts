@@ -1,4 +1,4 @@
-﻿namespace ColegioHogwarts.Core.Interfaces
+﻿namespace ColegioHogwarts.Infraestructure.Services
 {
     public interface IPasswordService
     {

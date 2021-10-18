@@ -4,9 +4,9 @@ namespace ColegioHogwarts.Core.DTOs
 {
     public class SecurityDto
     {
-        public string UserSecurity { get; set; }
+        public string User { get; set; }
         public string UserName { get; set; }
-        public string PasswordUser { get; set; }
-        public RoleType RoleUser { get; set; }
+        public string Password { get; set; }
+        public RoleType? Role { get; set; }
     }
 }

@@ -14,30 +14,34 @@ namespace ColegioHogwarts.Infraestructure.Data.Configurations
 
             builder.HasKey(e => e.Id);
 
-            builder.Property(e => e.Id)
-                .HasColumnName("IdSecurity");
+            builder.Property(e => e.Id).HasColumnName("IdSecurity");
 
-            builder.Property(e => e.PasswordUser)
+            builder.Property(e => e.User)
+                .HasColumnName("UserSecurity")
                 .IsRequired()
-                .HasMaxLength(200)
+                .HasMaxLength(50)
                 .IsUnicode(false);
 
-            builder.Property(e => e.RoleUser)
-                .HasConversion(
-                x => x.ToString(),
-                x => (RoleType)Enum.Parse(typeof(RoleType), x))
-                .IsRequired()
-                .HasMaxLength(15);
-
             builder.Property(e => e.UserName)
+                .HasColumnName("UserName")
                 .IsRequired()
                 .HasMaxLength(100)
                 .IsUnicode(false);
 
-            builder.Property(e => e.UserSecurity)
+            builder.Property(e => e.Password)
+                .HasColumnName("PasswordUser")
                 .IsRequired()
-                .HasMaxLength(50)
+                .HasMaxLength(200)
                 .IsUnicode(false);
+
+            builder.Property(e => e.Role)
+                .HasColumnName("RoleUser")
+                .HasMaxLength(15)
+                .IsRequired()
+                .HasConversion(
+                x => x.ToString(),
+                x => (RoleType)Enum.Parse(typeof(RoleType), x)
+                );
         }
     }
 }
