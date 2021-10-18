@@ -42,7 +42,13 @@ namespace ColegioHogwarts.Core.Services
 
         public async Task<bool> UpdateCandidate(Candidate candidate)
         {
-            if(!_houseRepository.HouseExist(candidate.House))
+            var existingCandidate = await _unitOfWork.CandidateRepository.GetById(candidate.Id);
+            existingCandidate.Identification = candidate.Identification;
+            existingCandidate.Name = candidate.Name;
+            existingCandidate.LastName = candidate.LastName;
+            existingCandidate.House = candidate.House;
+            
+            if (!_houseRepository.HouseExist(candidate.House))
             {
                 throw new GlobalException($"La casa {candidate.House} no existe. " +
                     $"Solo puede ingresar: Gryffindor, Slytherin, Hufflepuff o Ravenclaw");
@@ -56,6 +62,7 @@ namespace ColegioHogwarts.Core.Services
         public async Task<bool> DeleteCandidate(int id)
         {
             await _unitOfWork.CandidateRepository.Delete(id);
+            await _unitOfWork.SaveChangesAsync();
             return true;
         }
     }

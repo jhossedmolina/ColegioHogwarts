@@ -1,16 +1,9 @@
-using ColegioHogwarts.Core.Interfaces;
-using ColegioHogwarts.Core.Services;
-using ColegioHogwarts.Infraestructure.Data;
+using ColegioHogwarts.Infraestructure.Extensions;
 using ColegioHogwarts.Infraestructure.Filters;
-using ColegioHogwarts.Infraestructure.Options;
-using ColegioHogwarts.Infraestructure.Repositories;
-using ColegioHogwarts.Infraestructure.Services;
-using ColegioHogwarts.Infraestructure.Validators;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -35,30 +28,16 @@ namespace ColegioHogwarts.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-            services.Configure<PasswordOptions>(Configuration.GetSection("PasswordOptions"));
-
-            //Dependency injection for Data Base
-            services.AddDbContext<ColegioHogwartsDBContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("ColegioHogwarts"))
-            );
-
-            //Dependency injection
-            services.AddTransient<ICandidateService, CandidateService>();
-            services.AddTransient<ISecurityService, SecurityService>();
-            services.AddTransient<IHouseValidator, HouseValidator>();
-            services.AddSingleton<IPasswordService, PasswordService>();
-            services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
-            services.AddTransient<IUnitOfWork, UnitOfWork>();
-
-
-            //AutoMapper implementation
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddControllers(options =>
             {
                 options.Filters.Add<GlobalExceptionFilter>();
             });
+
+            services.AddOptions(Configuration);
+            services.AddDbContexts(Configuration);
+            services.AddServices(Configuration);
 
             //Swagger implementation
             services.AddSwaggerGen(doc => 
