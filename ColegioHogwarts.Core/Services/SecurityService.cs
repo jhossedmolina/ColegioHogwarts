@@ -1,6 +1,5 @@
 ﻿using ColegioHogwarts.Core.DTOs;
 using ColegioHogwarts.Core.Entities;
-using ColegioHogwarts.Core.Enumerations;
 using ColegioHogwarts.Core.Exceptions;
 using ColegioHogwarts.Core.Interfaces;
 using System.Threading.Tasks;
@@ -23,22 +22,8 @@ namespace ColegioHogwarts.Core.Services
 
         public async Task RegisterUser(Security security)
         {
-            if(RoleType.Administrador == security.Role)
-            {
-                await _unitOfWork.SecurityRepository.Add(security);
-                await _unitOfWork.SaveChangesAsync();
-            }
-            else if(RoleType.Usuario == security.Role)
-            {
-                await _unitOfWork.SecurityRepository.Add(security);
-                await _unitOfWork.SaveChangesAsync();
-            }
-            else
-            {
-                throw new GlobalException($"El Rol {security.Role} no existe. " +
-                    "Solo puede ingresar 0 = Administrador o 1 = Usuario como tipo de Rol");
-            }
-            
+            await _unitOfWork.SecurityRepository.Add(security);
+            await _unitOfWork.SaveChangesAsync();
         }
     }
 }

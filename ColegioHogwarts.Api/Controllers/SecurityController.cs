@@ -2,7 +2,6 @@
 using ColegioHogwarts.Api.Responses;
 using ColegioHogwarts.Core.DTOs;
 using ColegioHogwarts.Core.Entities;
-using ColegioHogwarts.Core.Enumerations;
 using ColegioHogwarts.Core.Interfaces;
 using ColegioHogwarts.Infraestructure.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -32,7 +31,7 @@ namespace ColegioHogwarts.Api.Controllers
         {
             var security = _mapper.Map<Security>(securityDto);
 
-            security.Password = _passwordService.Hash(security.Password);
+            security.PasswordUser = _passwordService.Hash(security.PasswordUser);
             await _securityService.RegisterUser(security);
 
             securityDto = _mapper.Map<SecurityDto>(security);

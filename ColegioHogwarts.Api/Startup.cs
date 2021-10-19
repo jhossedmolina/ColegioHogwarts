@@ -43,6 +43,32 @@ namespace ColegioHogwarts.Api
             services.AddSwaggerGen(doc => 
             {
                 doc.SwaggerDoc("v1", new OpenApiInfo { Title = "Colegio Hogwarts API", Version = "v1" });
+                doc.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme 
+                {
+                    In = ParameterLocation.Header,
+                    Description = "Por favor ingrese su Token de acceso",
+                    Name = "Autorizacion",
+                    Type = SecuritySchemeType.Http,
+                    BearerFormat = "JWT",
+                    Scheme = "bearer"
+                });
+                doc.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        new string[]
+                        {
+
+                        }
+                    }
+                });
 
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);

@@ -44,7 +44,7 @@ namespace ColegioHogwarts.Api.Controllers
         private async Task<(bool, Security)> IsValidUser(UserLogin login)
         {
             var user = await _securityService.GetLoginByCredentials(login);
-            var isValid = _passwordService.Check(user.Password, login.Password);
+            var isValid = _passwordService.Check(user.PasswordUser, login.Password);
             return (isValid, user);
         }
 
@@ -59,8 +59,8 @@ namespace ColegioHogwarts.Api.Controllers
             var claims = new[]
             {
                 new Claim(ClaimTypes.Name, security.UserName),
-                new Claim("User", security.User),
-                new Claim(ClaimTypes.Role, security.Role.ToString()),
+                new Claim("UserName", security.UserSecurity),
+                new Claim(ClaimTypes.Role, security.RoleUser),
             };
 
             //Payload
