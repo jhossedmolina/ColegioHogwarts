@@ -57,7 +57,7 @@ namespace ColegioHogwarts.Api.Controllers
         }
 
         /// <summary>
-        /// Crea una nueva solicitud de ingreso
+        /// Crea una nueva solicitud de ingreso. El campo id del Request Body debe eliminarse o dejarse ya que es autoincremental y en el campo house del Request Body solo se puede ingresar: Gryffindor, Ravenclaw, Slytherin o Hufflepuff
         /// </summary>
         /// <param name="candidateDto"></param>
         /// <returns></returns>
@@ -73,7 +73,7 @@ namespace ColegioHogwarts.Api.Controllers
         }
 
         /// <summary>
-        /// Actualiza una solicitud de ingreso
+        /// Actualiza una solicitud de ingreso. El campo id del Request Body debe eliminarse o dejarse en 0 ya que es autoincremental y en el campo house del Request Body solo se puede ingresar: Gryffindor, Ravenclaw, Slytherin o Hufflepuff
         /// </summary>
         /// <param name="id"></param>
         /// <param name="candidateDto"></param>

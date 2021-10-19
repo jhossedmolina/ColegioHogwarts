@@ -10,6 +10,7 @@
         /// El campo edad debe contener 2 digitos y no puede ser nulo
         /// En el campo House solo se pueden ingresar las casas Ravenclaw, Slytherin, Gryffindor o Hufflepuff
         /// </summary>
+        
         public int Id { get; set; }
         public long? Identification { get; set; }
         public string Name { get; set; }

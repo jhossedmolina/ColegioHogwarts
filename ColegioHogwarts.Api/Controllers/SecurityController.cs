@@ -26,6 +26,11 @@ namespace ColegioHogwarts.Api.Controllers
             _passwordService = passwordService;
         }
 
+        /// <summary>
+        /// Creacion de usuarios para poder acceder a la API
+        /// </summary>
+        /// <param name="securityDto"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> PostUser(SecurityDto securityDto)
         {

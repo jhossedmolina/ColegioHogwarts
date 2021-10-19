@@ -27,6 +27,11 @@ namespace ColegioHogwarts.Api.Controllers
             _passwordService = passwordService;
         }
 
+        /// <summary>
+        /// Login de usuario para poder generar el Token. En el campo user del Request Body se ingresa la informacion del campo userSecurity del Request Body de api/Security y en el campo password del Request Body se ingresa la informacion del campo passwordUser del Request Body de api/Security
+        /// </summary>
+        /// <param name="login"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> Authentication(UserLogin login)
         {

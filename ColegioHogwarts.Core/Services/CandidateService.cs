@@ -54,7 +54,7 @@ namespace ColegioHogwarts.Core.Services
                     $"Solo puede ingresar: Gryffindor, Slytherin, Hufflepuff o Ravenclaw");
             }
 
-            _unitOfWork.CandidateRepository.Update(candidate);
+            _unitOfWork.CandidateRepository.Update(existingCandidate);
             await _unitOfWork.SaveChangesAsync();
             return true;
         }
